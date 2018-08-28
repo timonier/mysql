@@ -3,7 +3,7 @@ FROM mysql:latest
 LABEL \
     maintainer="Morgan Auchede <morgan.auchede@gmail.com>"
 
-RUN set -ex \
+RUN set -e -u -x \
 \
     # Prepare system
 \
@@ -12,19 +12,18 @@ RUN set -ex \
 \
     # Install packages
 \
-    && apt-get install --no-install-recommends --yes \
-           ca-certificates \
-           curl \
+    && BUILD_DEPS="curl" \
+    && apt-get install --no-install-recommends --yes ${BUILD_DEPS} ca-certificates locales \
 \
-    # Install timonier/dumb-entrypoint
+    # Install dumb-entrypoint
 \
-    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-entrypoint/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
-    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/gosu/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-entrypoint/installer" | sh -s -- install \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/gosu/installer" | sh -s -- install \
 \
     # Clean
 \
-    && rm --force --recursive \
-           /tmp/* \
-           /var/lib/apt/lists/*
+    && apt-get remove --purge --yes ${BUILD_DEPS} \
+    && apt-get autoremove --purge --yes \
+    && rm -f -r /tmp/* /var/lib/apt/lists/*
 
 ENTRYPOINT [ "dumb-entrypoint" , "docker-entrypoint.sh" ]

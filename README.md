@@ -7,8 +7,20 @@ MySQL is a widely used, open-source relational database management system
 Linux users can use the [installer](https://github.com/timonier/mysql/blob/master/bin/installer):
 
 ```sh
+# Define installation folder
+
+export INSTALL_DIRECTORY=/usr/bin
+
+# Use local installation
+
+sudo bin/installer install
+
+# Use remote installation
+
 curl --location "https://github.com/timonier/mysql/raw/master/bin/installer" | sudo sh -s -- install
 ```
+
+__Note__: If you do not define `INSTALL_DIRECTORY`, `installer` will use in `/usr/local/bin`.
 
 ## Usage
 
