@@ -4,8 +4,6 @@ MySQL is a widely used, open-source relational database management system
 
 ## Installation
 
-Linux users can use the [installer](https://github.com/timonier/mysql/blob/master/bin/installer):
-
 ```sh
 # Define installation folder
 
