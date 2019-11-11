@@ -25,7 +25,7 @@ case "$1" in
         if [ -t 0 ]; then
             cp cmd "${INSTALL_DIRECTORY}"/mysql
         else
-            curl --location --output "${INSTALL_DIRECTORY}"/mysql "https://github.com/timonier/mysql/raw/master/bin/cmd"
+            curl --location --output "${INSTALL_DIRECTORY}"/mysql "https://gitlab.com/timonier/mysql/raw/master/bin/cmd"
         fi
 
         chmod +x "${INSTALL_DIRECTORY}"/mysql
